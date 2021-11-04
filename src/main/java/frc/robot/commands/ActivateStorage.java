@@ -5,18 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Storage;
 
-public class ActivateFeeder extends CommandBase {
-  private final Feeder feeder;
-  private final double percent;
+public class ActivateStorage extends CommandBase {
+  public final Storage storage;
+  public final double percent;
 
-  /** Creates a new ActivateFeeder. */
-  public ActivateFeeder(Feeder feeder,double percent) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    this.feeder = feeder;
+  /** Creates a new ActivateStorage. */
+  public ActivateStorage(Storage storage, double percent) {
+    this.storage = storage;
     this.percent = percent;
-    addRequirements(feeder);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -27,15 +26,13 @@ public class ActivateFeeder extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.feeder.setPercentOutput(this.percent);
-    this.feeder.setLastUse();
-
+    this.storage.setPercentOutput(this.percent);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
+    this.storage.stop();
   }
 
   // Returns true when the command should end.

@@ -16,4 +16,7 @@ public final class Constants {
     public static final int feederID = 1;
 	public static final int operatorControllerID = 0;
 	public static final int rollersButtonID = 0; 
+	public static final int storageID = 2; 
+	public static final int shooter1ID = 3; 
+	public static final int shooter2ID = 4; 
 }

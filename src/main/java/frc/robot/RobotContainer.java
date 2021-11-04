@@ -26,8 +26,6 @@ public class RobotContainer {
   private final XboxController operatorController = new XboxController(Constants.operatorControllerID);
   private final Feeder feeder = new Feeder();
 
-  private final ActivateFeeder m_autoCommand = new ActivateFeeder(this.feeder, 0.3);
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -52,6 +50,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null;
   }
 }

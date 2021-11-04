@@ -11,24 +11,34 @@ import frc.robot.Constants;
 public class Feeder extends SubsystemBase {
 
   private final Victor master;
+  private int lastUsed = 0;
   /** Creates a new Feeder. */
   public Feeder() {
-    master = new Victor(Constants.feederID);
-    stop();
+    this.master = new Victor(Constants.feederID);
+    this.setLastUse();
+    this.stop();
   }
 
   public void setPercentOutput(double percent){
-    master.set(percent);
+    this.master.set(percent);
   }
   public void stop(){
     // test commit
-    master.set(0);
+    this.setPercentOutput(0);
+  }
+
+  public void setLastUse(){
+    this.lastUsed=0;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  }
-
-
+    if(this.lastUsed > 9){
+      this.stop();
+    }
+    else{
+      this.lastUsed++;
+    }
+  } 
 }

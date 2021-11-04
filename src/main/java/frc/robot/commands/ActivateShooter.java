@@ -12,7 +12,7 @@ public class ActivateShooter extends CommandBase {
   public final double percent;
 
   /** Creates a new ActivateStorage. */
-  public ActivateShooter(Storage storaSge, double percent) {
+  public ActivateShooter(Storage storage, double percent) {
     this.storage = storage;
     this.percent = percent;
     // Use addRequirements() here to declare subsystem dependencies.

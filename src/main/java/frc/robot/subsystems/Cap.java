@@ -9,12 +9,12 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Storage extends SubsystemBase {
+public class Cap extends SubsystemBase {
   private final WPI_TalonSRX master;
 
   /** Creates a new Storage. */
-  public Storage() {
-    this.master = new WPI_TalonSRX(Constants.storageID);
+  public Cap() {
+    this.master = new WPI_TalonSRX(Constants.capID);
   }
 
   @Override

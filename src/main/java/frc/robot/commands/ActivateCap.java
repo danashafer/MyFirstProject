@@ -5,15 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Storage;
+import frc.robot.subsystems.Cap;
 
-public class ActivateShooter extends CommandBase {
-  public final Storage storage;
+public class ActivateCap extends CommandBase {
+  public final Cap cap;
   public final double percent;
 
   /** Creates a new ActivateStorage. */
-  public ActivateShooter(Storage storage, double percent) {
-    this.storage = storage;
+  public ActivateCap(Cap cap, double percent) {
+    this.cap = cap;
     this.percent = percent;
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -26,13 +26,13 @@ public class ActivateShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.storage.setPercentOutput(this.percent);
+    this.cap.setPercentOutput(this.percent);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.storage.stop();
+    this.cap.stop();
   }
 
   // Returns true when the command should end.

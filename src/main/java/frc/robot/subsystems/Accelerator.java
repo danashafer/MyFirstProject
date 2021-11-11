@@ -9,12 +9,12 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Shooter extends SubsystemBase {
+public class Accelerator extends SubsystemBase {
   private final WPI_TalonSRX master1;
   private final WPI_TalonSRX master2;
 
   /** Creates a new Storage. */
-  public Shooter() {
+  public Accelerator() {
     this.master1 = new WPI_TalonSRX(Constants.shooter1ID);
     this.master2 = new WPI_TalonSRX(Constants.shooter2ID);
   }

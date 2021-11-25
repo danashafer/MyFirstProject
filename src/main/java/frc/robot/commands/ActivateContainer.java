@@ -8,14 +8,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Container;
 
 public class ActivateContainer extends CommandBase {
-  public final Container container;
-  public final double percent;
+  private final Container container;
+  private final double percent;
 
   /** Creates a new ActivateStorage. */
   public ActivateContainer(Container container, double percent) {
     this.container = container;
     this.percent = percent;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(this.container);
   }
 
   // Called when the command is initially scheduled.

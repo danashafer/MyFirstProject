@@ -24,10 +24,19 @@ public class Feeder extends SubsystemBase {
   }
 
   private void configureSubsystem() {
-    // reverse direction
-    this.master.setInverted(true);
-    // blocked on neutral
+    // configuration of a single motor:
+    ////////////////////////////////////////////////
+    // set the usual configuration:
+    this.master.configFactoryDefault();
+
+    // modify motor-direction:
+    this.master.setInverted(false);
+    
+    // modify the mode at neutral:
     this.master.setNeutralMode(NeutralMode.Brake);
+    ////////////////////////////////////////////////
+
+    // as initialize, stop the subsystem:
     this.stop();
   }
 
@@ -47,10 +56,10 @@ public class Feeder extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if (this.lastUsed > 9) {
-      this.stop();
-    } else {
-      this.lastUsed++;
-    }
+    // if (this.lastUsed > 9) {
+    //   this.stop();
+    // } else {
+    //   this.lastUsed++;
+    // }
   }
 }

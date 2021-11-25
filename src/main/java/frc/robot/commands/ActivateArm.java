@@ -8,14 +8,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
 
 public class ActivateArm extends CommandBase {
-  public final Arm arm;
-  public final double percent;
+  private final Arm arm;
+  private final double percent;
 
   /** Creates a new ActivateStorage. */
   public ActivateArm(Arm arm, double percent) {
     this.arm = arm;
     this.percent = percent;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(this.arm);
   }
 
   // Called when the command is initially scheduled.

@@ -7,35 +7,58 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ActivateFeeder;
+import frc.robot.subsystems.Accelerator;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Cap;
+import frc.robot.subsystems.Container;
 import frc.robot.subsystems.Feeder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and button mappings) should be declared here.
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a "declarative" paradigm, very little robot logic should
+ * actually be handled in the {@link Robot} periodic methods (other than the
+ * scheduler calls). Instead, the structure of the robot (including subsystems,
+ * commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final XboxController operatorController = new XboxController(Constants.operatorControllerID);
+  private final XboxController operatorController = new XboxController(Constants.operatorControlerID);
   private final Feeder feeder = new Feeder();
+  private final Accelerator accelerator = new Accelerator();
+  private final Arm arm = new Arm();
+  private final Cap cap = new Cap();
+  private final Container container = new Container();
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  private final String subsystemDebugTabName = "SubsystemsDebugTab";
+  private final boolean isDebugMode = false;
+
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    if (isDebugMode) {
+      this.initSubsystemsDebugTab();
+      this.configCommandsDebugTab();
+
+
+    }
+  }
+
+  private void configCommandsDebugTab() {
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * Use this method to define your button->command mappings. Buttons can be
+   * created by instantiating a {@link GenericHID} or one of its subclasses
+   * ({@link edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then
+   * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton rumbleRollers = new JoystickButton(this.operatorController, Constants.rollersButtonID);
+    JoystickButton rumbleRollers = new JoystickButton(this.operatorController, 1);
     rumbleRollers.whileActiveContinuous(new ActivateFeeder(this.feeder, 0.3));
   }
 
@@ -47,5 +70,17 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return null;
+  }
+
+  public void scheduleRobotPeriodic() {
+    ///
+  }
+
+  private void initSubsystemsDebugTab() {
+    // accelerator.createDebugPrints(subsystemDebugTabName);
+    // cap.createDebugPrints(subsystemDebugTabName);
+    // arm.createDebugPrints(subsystemDebugTabName);
+    // container.createDebugPrints(subsystemDebugTabName);
+    // feeder.createDebugPrints(subsystemDebugTabName);
   }
 }

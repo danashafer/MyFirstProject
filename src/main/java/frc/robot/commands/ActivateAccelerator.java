@@ -8,14 +8,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Accelerator;
 
 public class ActivateAccelerator extends CommandBase {
-  public final Accelerator accelerator;
-  public final double percent;
+  private final Accelerator accelerator;
+  private final double percent;
 
   /** Creates a new ActivateStorage. */
   public ActivateAccelerator(Accelerator accelerator, double percent) {
     this.accelerator = accelerator;
     this.percent = percent;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(this.accelerator);
   }
 
   // Called when the command is initially scheduled.

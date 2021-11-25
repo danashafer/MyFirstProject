@@ -28,19 +28,17 @@ public class ActivateFeeder extends CommandBase {
   @Override
   public void execute() {
     this.feeder.setPercentOutput(this.percent);
-    this.feeder.setLastUse();
-
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
+    this.feeder.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
-  }
+  } 
 }

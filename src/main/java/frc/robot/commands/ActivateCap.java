@@ -8,14 +8,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Cap;
 
 public class ActivateCap extends CommandBase {
-  public final Cap cap;
-  public final double percent;
+  private final Cap cap;
+  private final double percent;
 
   /** Creates a new ActivateStorage. */
   public ActivateCap(Cap cap, double percent) {
     this.cap = cap;
     this.percent = percent;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements((this.cap));
   }
 
   // Called when the command is initially scheduled.

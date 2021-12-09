@@ -12,14 +12,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Feeder extends SubsystemBase {
-
   private final VictorSPX master;
-  private int lastUsed = 0;
-
+  
   /** Creates a new Feeder. */
   public Feeder() {
     this.master = new VictorSPX(Constants.feederID);
-    this.setLastUse();
     this.configureSubsystem();
   }
 
@@ -45,21 +42,11 @@ public class Feeder extends SubsystemBase {
   }
 
   public void stop() {
-    // test commit
     this.setPercentOutput(0);
-  }
-
-  public void setLastUse() {
-    this.lastUsed = 0;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    // if (this.lastUsed > 9) {
-    //   this.stop();
-    // } else {
-    //   this.lastUsed++;
-    // }
   }
 }

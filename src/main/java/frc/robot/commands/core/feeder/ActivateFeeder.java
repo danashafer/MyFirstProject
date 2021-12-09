@@ -2,21 +2,21 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.core.feeder;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Cap;
+import frc.robot.subsystems.Feeder;
 
-public class ActivateCap extends CommandBase {
-  private final Cap cap;
+public class ActivateFeeder extends CommandBase {
+  private final Feeder feeder;
   private final double percent;
 
-  /** Creates a new ActivateStorage. */
-  public ActivateCap(Cap cap, double percent) {
-    this.cap = cap;
-    this.percent = percent;
+  /** Creates a new ActivateFeeder. */
+  public ActivateFeeder(Feeder feeder, double percent) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements((this.cap));
+    this.feeder = feeder;
+    this.percent = percent;
+    addRequirements(this.feeder);
   }
 
   // Called when the command is initially scheduled.
@@ -27,13 +27,13 @@ public class ActivateCap extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.cap.setPercentOutput(this.percent);
+    this.feeder.setPercentOutput(this.percent);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.cap.stop();
+    this.feeder.stop();
   }
 
   // Returns true when the command should end.

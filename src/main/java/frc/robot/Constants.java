@@ -18,14 +18,14 @@ public final class Constants {
 
     // motors
     public static final int feederID = 1;
-    public final static int armID = 1;
-    public final static int capID = 1;
-    public final static int acceleratorRightID = 1;
-    public final static int acceleratorLeftID = 1;
-    public final static int containerID = 1;
+    public static final int armID = 10;
+    public static final int coverID = 9;
+    public static final int acceleratorRightID = 12;
+    public static final int acceleratorLeftID = 2;
+    public static final int storageID = 13;
     
     // sensors
-	public final static int upperSwitchID = 1;
-	public final static int lowerSwitchID = 1;
-	public final static int infraRedID = 1;
+	public static final int upperSwitchID = 1;
+	public static final int lowerSwitchID = 0;
+	public static final int infraRedID = 4;
 }

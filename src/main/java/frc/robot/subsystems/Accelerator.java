@@ -4,25 +4,34 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-public class Accelerator  extends SubsystemBase {
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
+public class Accelerator extends SubsystemBase {
   private final WPI_TalonSRX masterRight;
   private final WPI_TalonSRX slaveLeft;
 
-  /** Creates a new Accelerator. */
+  private int targetVelocity;
+
+    // PIDF Control values
+    private final int profileSlotID = 0;
+    private final double kP = 0.5;
+    private final double kI = 0.001;
+    private final double kD = 0.3;
+    private final double kF = 0;
+
+  /** Creates a new Arm. */
   public Accelerator() {
     this.masterRight = new WPI_TalonSRX(Constants.acceleratorRightID);
     this.slaveLeft = new WPI_TalonSRX(Constants.acceleratorLeftID);
     this.configureSubsystem();
-    this.stop();
   }
+
   private void configureSubsystem() {
     // configuration of a single motor:
     ////////////////////////////////////////////////
@@ -38,7 +47,6 @@ public class Accelerator  extends SubsystemBase {
     this.masterRight.setNeutralMode(NeutralMode.Coast);
     this.slaveLeft.setNeutralMode(NeutralMode.Coast);
     ////////////////////////////////////////////////
-    
     // configuration of an encoder sensor:
     ////////////////////////////////////////////////
     // set the sensor which operates along with the motor:
@@ -55,17 +63,54 @@ public class Accelerator  extends SubsystemBase {
     this.stop();
   }
 
+  public void setVelocity(double velocity){
+    this.masterRight.selectProfileSlot(this.profileSlotID, 0);
+    this.masterRight.set(ControlMode.Velocity, velocity);
+    this.slaveLeft.selectProfileSlot(this.profileSlotID, 0);
+    this.slaveLeft.set(ControlMode.Velocity, velocity);
+  }
+
+  public void configPIDFSlot(double kP, double kI, double kD, double kF) {
+    this.masterRight.config_kP(this.profileSlotID, kP);
+    this.masterRight.config_kI(this.profileSlotID, kI);
+    this.masterRight.config_kD(this.profileSlotID, kD);
+    this.masterRight.config_kF(this.profileSlotID, kF);
+    this.slaveLeft.config_kP(this.profileSlotID, kP);
+    this.slaveLeft.config_kI(this.profileSlotID, kI);
+    this.slaveLeft.config_kD(this.profileSlotID, kD);
+    this.slaveLeft.config_kF(this.profileSlotID, kF);
+  }
+
   public void setPercentOutput(double percent) {
     this.masterRight.set(ControlMode.PercentOutput, percent);
-    this.slaveLeft.set(ControlMode.PercentOutput, percent);
+  }
+
+  public double getVelocity() {
+    return this.masterRight.getSelectedSensorVelocity();
+  }
+  
+  public void stop() {
+    this.setPercentOutput(0);
+  }
+
+  public double getRightVelocity(){
+    return this.masterRight.getSelectedSensorVelocity();
+  }
+
+  public double getLeftVelocity(){
+    return this.slaveLeft.getSelectedSensorVelocity();
+  }
+
+  public double getAvarageVelocity(){
+    return (this.getRightVelocity() + this.getLeftVelocity()) / 2;
+  }
+
+  public boolean atTarget(){
+    return Math.abs(this.getAvarageVelocity() - this.targetVelocity) < 60;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  }
-
-  public void stop() {
-    this.setPercentOutput(0);
   }
 }

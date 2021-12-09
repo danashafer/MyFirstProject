@@ -4,27 +4,29 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-public class Cap extends SubsystemBase {
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
+public class Cover extends SubsystemBase {
   private final WPI_TalonSRX master;
+
   private final static int maxPosition = 100;
   private final static int minPosition = 0;
-  
+
+  private int targetPosition;
   private int lastUsed;
 
-  /** Creates a new Storage. */
-  public Cap() {
-    this.master = new WPI_TalonSRX(Constants.capID);
+  /** Creates a new Cover. */
+  public Cover() {
+    this.master = new WPI_TalonSRX(Constants.coverID);
     this.configureSubsystem();
-    
   }
+
   private void configureSubsystem() {
     // configuration of a single motor:
     ////////////////////////////////////////////////
@@ -63,19 +65,31 @@ public class Cap extends SubsystemBase {
   public void setPercentOutput(double percent) {
     this.master.set(ControlMode.PercentOutput, percent);
   }
+
   public void stop() {
     this.setPercentOutput(0);
   }
+
   public void setLastUse(){
     this.lastUsed = 0;
+  }
+
+  public boolean atTarget() {
+    return Math.abs(this.getPosition() - this.targetPosition) < 8;
+  }
+
+  public int getPosition(){
+    return (int) this.master.getSelectedSensorPosition();
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
+    if (this.lastUsed > 9){ // no longer in use
+      this.stop(); // then stop motor
+    }
+    else{
+      this.lastUsed++; // update
+    }
   }
-
-  
-  
 }
